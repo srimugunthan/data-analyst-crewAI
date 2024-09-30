@@ -1,0 +1,51 @@
+datascience_task:
+  description: >
+    You are tasked with generating the Python code, executing and summarizing to answer the question given a dataset. 
+    You are given the following information:
+
+    - Dataset description: <dataset_description> {metadata_info} </dataset_description>
+    - Question: <question> {question_str} </question>
+
+    Steps to Follow:
+
+    1. Must follow the guidelines below strictly to generate the code.
+      - The code should use pandas, numpy, matplotlib, seaborn, statsmodel and scikit-learn libraries.
+      - Include the above libraries and any other library that may be required.
+      - Load the dataset from the dataset_location given below: 
+        <dataset_location>
+          {datapath_info} 
+        </dataset_location>  
+      - Assuming the data is already clean (skip data preparation)
+      - Use statistical tests and plots to answer the questions.
+      - Do not do summary statistics on all the variables.
+      - Focus only on the question in hand and use variables that are necessary for the analysis.
+      - Must print all intermediate results and final results on the console.
+      - The plot must be saved in png format at the below directory. Add plt.savefig() with the location below after the plots is created.  
+        <imagepath> 
+          {imagepath_dir} 
+        </imagepath>
+      - Ensure the code is clear, efficient, and well-commented.
+
+    2. The generated code satisfies the following conditions. If answer to any of the following is no, then the code generated in invalid.
+      - Is dataset loaded from the <dataset_location> specified above ?
+      - Is the code only use relevant variables in the dataframe for analysis that are necessary to answer the question?
+      - Is atleast one plot generated?
+      - Is the code saving the plot only in the <imagepath> directory mentioned above?
+      - Are the results or outputs of printed to the console?
+
+    3. Execute the code using the appropriate tool
+    3. Collect all output 
+    4. Interpret and summarize the results from statistical tests and plots in outputs       
+      
+  agent: data_scientist
+  expected_output: >
+    Summary or conclusion from the results or plots. 
+    The output should be in MARKDOWN format and must contain the following sections. It should start with question header as below. 
+    ### Question
+       - question
+    ### Code
+      - The code provided in the context as it is, without any changes. Embed the code in fenced code blocks?
+    ### Code Output
+      Outputs from code execution
+    ### Analysis
+      Inference and summarization of the code outputs

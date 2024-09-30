@@ -1,0 +1,6 @@
+
+app:
+NumOfQuestions: 2 
+Metadata: chd-metadata.txt
+DataPath: https://raw.githubusercontent.com/manaranjanp/MLIntroV1/main/Classification/SAheart.data
+ImagePath: /content/newproj/src/

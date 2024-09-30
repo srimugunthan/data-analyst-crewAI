@@ -1,0 +1,13 @@
+generate_questions_task:
+  description: >
+    Below is the description of a dataset containng the context and the description of data elements.
+    - Based on your understanding of the metadata, generate {how_many} questions which woul give deeper insights into the domain the data represents. 
+    - Questions should be about specific variables and based on univariate or bivariate analysis.
+    - The insights should be based on some of the basic statistical anlaysis like histogram, correlation analysis, hypothesis tests, bar plots, distribution or outlier analysis etc.
+
+    <metadata>
+      {metadata_info}
+    </metadata>
+  expected_output: >   
+    A list of question as specified by schema.
+  agent: business_consultant
