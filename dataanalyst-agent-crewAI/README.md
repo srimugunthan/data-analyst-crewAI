@@ -9,7 +9,7 @@ Following Additional steps and modifications were done over the original code:
 
 ### Customizing and building
 
-** To run Add your `OPENAI_API_KEY` required in the src/main.py (TODO: take openAI key from .env file) **
+** you need to change  `OPENAI_API_KEY` required in the src/main.py (TODO: take openAI key from .env file) **
 
 To build your crewai project do:
 
