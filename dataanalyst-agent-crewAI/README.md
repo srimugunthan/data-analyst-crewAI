@@ -1,8 +1,11 @@
-# Newproj Crew
+# Data analyst agent using crewAI
 
-This is a dockerized usage of crewAI for creating a data analysis agent. For data analyst code automaton the Original code was used from this blog post: https://medium.com/@manaranjanp/building-a-collaborative-ai-agent-framework-for-automated-eda-using-crewai-351478b424ce
-
-Additional steps and modifications were done over the original code.
+This is a dockerized usage of crewAI for creating a data analysis agent. 
+For data analyst code automaton the Original code was used from this blog post: https://medium.com/@manaranjanp/building-a-collaborative-ai-agent-framework-for-automated-eda-using-crewai-351478b424ce
+Following Additional steps and modifications were done over the original code:
+- Added another crew for data cleaning
+- Dockerised the whole project to avoid any crewAI installation issues on mac
+- Few miscell changes ( the REPL tool, comment out agentops etc)
 
 ### Customizing and building
 
@@ -11,7 +14,8 @@ Additional steps and modifications were done over the original code.
 To build your crewai project do:
 
 ```bash
-$ docker build -t crewai-newproj .
+
+$ docker build -t crewai-dataanalyst .
 ```
 
 ## Running the Project
@@ -21,10 +25,14 @@ To kickstart your crew of AI agents and begin task execution
 
 
 ```bash
-$ docker run  crewai-newproj 
+$ docker run  crewai-dataanalyst
 ```
 
+## Copy the output from docker to host machine
 
+```bash
+$ docker cp  
+```
 
 ## Understanding Your Crew
 
