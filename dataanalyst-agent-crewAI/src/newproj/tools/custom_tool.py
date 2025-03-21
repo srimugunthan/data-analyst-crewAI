@@ -1,4 +1,4 @@
-from crewai_tools import BaseTool
+from crewai.tools import BaseTool
 
 import pandas as pd
 import numpy as np

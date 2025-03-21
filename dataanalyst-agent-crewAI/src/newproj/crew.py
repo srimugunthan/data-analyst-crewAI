@@ -29,6 +29,48 @@ pyrepltool = PythonREPL()
 
 python_repl_tool = PythonREPLTool()
 
+@CrewBase
+class DataCleanerCrew():
+  """Quest crew"""
+  agents_config = 'config/dclean/agents.yaml'
+  tasks_config = 'config/dclean/tasks.yaml'
+
+  @llm
+  def llm_model(self):
+    return ChatOpenAI(temperature=0.0,  # Set to 0 for deterministic output
+                      model="gpt-4o-mini",  # Using the GPT-4 Turbo model
+                      max_tokens=8000) 
+ 
+  @agent
+  def data_cleaner(self) -> Agent:
+    return Agent(
+      config=self.agents_config['data_cleaner'],
+      max_rpm=None,
+      verbose=True
+    )
+
+  @task
+  def clean_data_task(self) -> Task:
+    return Task(
+      config=self.tasks_config['dataclean_task'],
+    
+    )
+
+  @crew
+  def crew(self) -> Crew:
+    """Creates the  crew"""
+    datacleaner_crew = Crew(
+      agents=self.agents,
+      tasks=self.tasks, # Automatically created by the @task decorator
+      process=Process.sequential,
+      verbose=True,
+      output_log_file = "dclean.log"
+      # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
+    )
+  
+    return datacleaner_crew
+
+
 
 @CrewBase
 class QuestCrew():

@@ -1,15 +1,21 @@
 #!/usr/bin/env python
 import sys
 import os
-from newproj.crew import QuestCrew, EDACrew
 
-os.environ["OPENAI_API_KEY"] = "YOUR OPEN API KEY"
+# Get the directory of the current script
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Get the parent directory
+parent_dir = os.path.dirname(current_dir)
+# Add the parent directory to sys.path
+sys.path.append(parent_dir)
+
+print(sys.path)
+
+from newproj.crew import QuestCrew, EDACrew,DataCleanerCrew
 
 
-# This main file is intended to be a way for your to run your
-# crew locally, so refrain from adding necessary logic into this file.
-# Replace with inputs you want to test with, it will automatically
-# interpolate any tasks and agents information
+os.environ["OPENAI_API_KEY"] = ""
+
 
 def read_file(file_path):
     with open(file_path, 'r') as file:
@@ -53,12 +59,21 @@ def run():
     metadata_txt = read_file("chd-metadata.txt")
     datapath = "https://raw.githubusercontent.com/manaranjanp/MLIntroV1/main/Classification/SAheart.data"
     imagepath = "/content/newproj/output"
+    cleandata_location = "./cleandata/SAheart.data"
     num_questions = 2
     
 
     print(f"Metadata file location: {metadata_txt}")
     print(f"Datapath location: {datapath}")
     print(f"Plots location: {imagepath}")   
+
+    dclean_inputs = {
+        'datapath_info': datapath,
+        'cleandata_path': cleandata_location,
+    }
+    #Run the agent
+    dcleanout = DataCleanerCrew().crew().kickoff(inputs=dclean_inputs)
+    print(dcleanout)
 
     # To store analysis for each questions.
     md_content = []
@@ -93,7 +108,7 @@ def run():
     eda_inputs_list = [{
         'question_str': q,
         'metadata_info': metadata_txt,
-        'datapath_info': datapath,
+        'datapath_info': cleandata_location,
         'imagepath_dir': f"{imagepath}/q_{i}"} for i, q in enumerate(qlist.questions)]
 
     #agentops.start_session(tags = ['answer', 'analysis'])
@@ -118,17 +133,11 @@ def run():
     except IOError as e:
         print(f"An error occurred while writing to the file: {e}")
 
-    #agentops.end_session("Success")
-
-# def run():
-#     """
-#     Run the crew.
-#     """
-#     inputs = {
-#         'topic': 'AI LLMs'
-#     }
-#     NewprojCrew().crew().kickoff(inputs=inputs)
+    # agentops.end_session("Success")
 
 
+
+if __name__ == "__main__":
+    run()
 
 

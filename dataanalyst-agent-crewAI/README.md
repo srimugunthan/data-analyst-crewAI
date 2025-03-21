@@ -1,54 +1,40 @@
 # Newproj Crew
 
-Welcome to the Newproj Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+This is a dockerized usage of crewAI for creating a data analysis agent. For data analyst code automaton the Original code was used from this blog post: https://medium.com/@manaranjanp/building-a-collaborative-ai-agent-framework-for-automated-eda-using-crewai-351478b424ce
 
-## Installation
+Additional steps and modifications were done over the original code.
 
-Ensure you have Python >=3.10 <=3.13 installed on your system. This project uses [Poetry](https://python-poetry.org/) for dependency management and package handling, offering a seamless setup and execution experience.
-
-First, if you haven't already, install Poetry:
-
-```bash
-pip install poetry
-```
-
-Next, navigate to your project directory and install the dependencies:
-
-1. First lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
-```
-### Customizing
+### Customizing and building
 
 **Add your `OPENAI_API_KEY` into the `.env` file**
 
-- Modify `src/newproj/config/agents.yaml` to define your agents
-- Modify `src/newproj/config/tasks.yaml` to define your tasks
-- Modify `src/newproj/crew.py` to add your own logic, tools and specific args
-- Modify `src/newproj/main.py` to add custom inputs for your agents and tasks
+To build your crewai project do:
+
+```bash
+$ docker build -t crewai-newproj .
+```
 
 ## Running the Project
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+To kickstart your crew of AI agents and begin task execution
+
+
 
 ```bash
-$ crewai run
+$ docker run  crewai-newproj 
 ```
 
-This command initializes the newproj Crew, assembling the agents and assigning them tasks as defined in your configuration.
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
 
 ## Understanding Your Crew
 
-The newproj Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+The newproj Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/` and subdirectories underneath has `tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `agents.yaml` file located in subdirectories of `config/`   outlines the capabilities and configurations of each agent in your crew.
 
-## Support
+## CrewAI Support
+You are welcome to fork and  make any changes leveraging crewAI
+For  crewAI support.
+- Visit  [crewAI documentation](https://docs.crewai.com)
+- Reach out to crewAI team through  [GitHub repository](https://github.com/joaomdmoura/crewai)
+- [Join crewAI Discord](https://discord.com/invite/X4JWnZnxPb)
+- [Chat with crewAI docs](https://chatg.pt/DWjSBZn)
 
-For support, questions, or feedback regarding the Newproj Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
