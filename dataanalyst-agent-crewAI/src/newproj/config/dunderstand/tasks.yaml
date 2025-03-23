@@ -1,0 +1,32 @@
+dataunderstanding_task:
+  description: >
+    You are tasked with generating the Python code and executing it to read the input dataset and perform data cleanup.
+    You are given the following information:
+    <dataset_location> {datapath_info} </dataset_location>
+
+    Steps to Follow:
+
+    1. Must follow the guidelines below strictly to generate the code:
+       - The code should use pandas, numpy, matplotlib, seaborn, statsmodels, and scikit-learn libraries.
+       - Include the above libraries and any other library that may be required.
+       - Load the input dataset from the dataset_location provided below:
+         <dataset_location> {datapath_info} </dataset_location>
+
+    2. Data Understanding:
+       Generate code to thoroughly examine the dataset and execute it.
+       Identify the data types of each column, the presence of missing values, outliers, and any inconsistencies.
+       Provide a brief summary of your initial observations, including data quality issues.
+       Just print the stats, no need to generate charts or figures.
+       Use pandas syntax to decipher the column names in the dataframe and the number of columns
+
+    Execute the code using the appropriate tool
+
+  
+
+  agent: junior_data_analyst
+  expected_output: >
+
+    ### Code
+    - The code provided in the context as it is, without any changes. Embed the code in fenced code blocks.
+    ### Code Output
+    - Outputs from code execution.

@@ -13,11 +13,6 @@ from typing import List
 
 from newproj.tools.custom_tool import PythonREPLTool
 
-# Uncomment the following line to use an example of a custom tool
-# from newproj.tools.custom_tool import MyCustomTool
-
-# Check our tools documentations for more information on how to use them
-# from crewai_tools import SerperDevTool
 
 
 
@@ -30,10 +25,10 @@ pyrepltool = PythonREPL()
 python_repl_tool = PythonREPLTool()
 
 @CrewBase
-class DataCleanerCrew():
-  """Quest crew"""
-  agents_config = 'config/dclean/agents.yaml'
-  tasks_config = 'config/dclean/tasks.yaml'
+class JuniorDACrew():
+  """Data understanding crew"""
+  agents_config = 'config/dunderstand/agents.yaml'
+  tasks_config = 'config/dunderstand/tasks.yaml'
 
   @llm
   def llm_model(self):
@@ -42,9 +37,9 @@ class DataCleanerCrew():
                       max_tokens=8000) 
  
   @agent
-  def data_cleaner(self) -> Agent:
+  def junior_data_analyst(self) -> Agent:
     return Agent(
-      config=self.agents_config['data_cleaner'],
+      config=self.agents_config['junior_data_analyst'],
       max_rpm=None,
       verbose=True
     )
@@ -52,23 +47,23 @@ class DataCleanerCrew():
   @task
   def clean_data_task(self) -> Task:
     return Task(
-      config=self.tasks_config['dataclean_task'],
+      config=self.tasks_config['dataunderstanding_task']
     
     )
 
   @crew
   def crew(self) -> Crew:
     """Creates the  crew"""
-    datacleaner_crew = Crew(
+    junior_da_crew = Crew(
       agents=self.agents,
       tasks=self.tasks, # Automatically created by the @task decorator
       process=Process.sequential,
       verbose=True,
-      output_log_file = "dclean.log"
+      output_log_file = "dunderst.log"
       # process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
     )
   
-    return datacleaner_crew
+    return junior_da_crew
 
 
 
@@ -129,11 +124,7 @@ class EDACrew():
  
 
  
-  # return ChatGroq(
-  #  model="llama3.1-70b-versatile",
-  #  temperature=0.0,
-  #  max_retries=2,
-  # ) 
+
 
   @agent
   def data_scientist(self) -> Agent:

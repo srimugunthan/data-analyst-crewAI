@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import sys
 import os
+import pandas as pd
+from io import StringIO
 
 # Get the directory of the current script
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -11,10 +13,14 @@ sys.path.append(parent_dir)
 
 print(sys.path)
 
-from newproj.crew import QuestCrew, EDACrew,DataCleanerCrew
+from newproj.crew import QuestCrew, EDACrew,JuniorDACrew
 
 
 os.environ["OPENAI_API_KEY"] = ""
+
+
+
+
 
 
 def read_file(file_path):
@@ -57,9 +63,9 @@ def run():
     #num_questions = config['app']['NumOfQuestions']
 
     metadata_txt = read_file("chd-metadata.txt")
-    datapath = "https://raw.githubusercontent.com/manaranjanp/MLIntroV1/main/Classification/SAheart.data"
-    imagepath = "/content/newproj/output"
-    cleandata_location = "./cleandata/SAheart.data"
+    datapath = "./SAheart_data.csv"
+    imagepath = "./mount_point/"
+    cleandata_location = "./mount_point/SAheart_clean_data.csv"
     num_questions = 2
     
 
@@ -72,8 +78,10 @@ def run():
         'cleandata_path': cleandata_location,
     }
     #Run the agent
-    dcleanout = DataCleanerCrew().crew().kickoff(inputs=dclean_inputs)
-    print(dcleanout)
+    crew_output = JuniorDACrew().crew().kickoff(inputs=dclean_inputs)
+
+
+
 
     # To store analysis for each questions.
     md_content = []
@@ -108,7 +116,7 @@ def run():
     eda_inputs_list = [{
         'question_str': q,
         'metadata_info': metadata_txt,
-        'datapath_info': cleandata_location,
+        'datapath_info': datapath,
         'imagepath_dir': f"{imagepath}/q_{i}"} for i, q in enumerate(qlist.questions)]
 
     #agentops.start_session(tags = ['answer', 'analysis'])
@@ -120,7 +128,7 @@ def run():
 
     # Consolidating the writing to a file. 
     try:
-        with open("final_analysis.md", 'w') as file:
+        with open("./mount_point/final_analysis.md", 'w') as file:
             file.write("# Exploratory Data Analysis" + '\n\n')
             file.write("## Dataset Description" + '\n\n')
             file.write(metadata_txt + '\n\n')
