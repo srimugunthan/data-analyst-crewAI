@@ -3,7 +3,7 @@
 This is a dockerized usage of crewAI for creating a data analysis agent. 
 For data analyst code automaton the Original code was used from this blog post: https://medium.com/@manaranjanp/building-a-collaborative-ai-agent-framework-for-automated-eda-using-crewai-351478b424ce
 Following Additional steps and modifications were done over the original code:
-- Added another crew for data cleaning
+- Added another crew  in the beginning to print descriptive statistics
 - Dockerised the whole project to avoid any crewAI installation issues on mac
 - Few miscell changes ( the REPL tool, comment out agentops etc)
 
@@ -20,18 +20,20 @@ $ docker build -t crewai-dataanalyst .
 
 ## Running the Project
 
-To kickstart your crew of AI agents and begin task execution
+To kickstart your crew of AI agents and begin task execution, the directory "mountdir" in  current folders  is mapped into the docker container /app/mount_point to write the output
 
 
 
 ```bash
-$ docker run  crewai-dataanalyst
+$  rm -rf ./mountdir/*
+$  docker run --mount type=bind,src=./mountdir,dst=/app/mount_point crewai-dataanalyst
 ```
 
-## Copy the output from docker to host machine
-
+To run crewAI from within the docker container follow the below steps:
 ```bash
-$ docker cp  
+$  docker run -it   crewai-dataanalyst /bin/bash 
+$  cd /app
+$  python "src/newproj/main.py
 ```
 
 ## Understanding Your Crew
