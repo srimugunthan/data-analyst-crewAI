@@ -33,7 +33,7 @@ To run crewAI from within the docker container follow the below steps:
 ```bash
 $  docker run -it   crewai-dataanalyst /bin/bash 
 $  cd /app
-$  python "src/newproj/main.py
+$  python src/newproj/main.py
 ```
 
 ## Understanding Your Crew
